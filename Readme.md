@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Марк](https://up.htmlacademy.ru/javascript-individual/1/user/2509141).
-* Наставник: `Неизвестно`.
+* Наставник: [Павел Ившин](https://up.htmlacademy.ru/javascript-individual/1/user/818775).
 
 ---
 
