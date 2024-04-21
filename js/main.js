@@ -1,3 +1,3 @@
-import { createSomePhotos } from './data.js';
+import { fillPictures } from './minis.js';
 
-createSomePhotos();
+fillPictures();
