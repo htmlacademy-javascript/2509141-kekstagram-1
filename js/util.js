@@ -7,4 +7,16 @@ const createRandomFloatInRange = (min, max) =>
 const getRandomIntInRange = (min, max) =>
   Math.floor(createRandomFloatInRange(min, max));
 
-export { createIdGeneratorInRange, createRandomFloatInRange, getRandomIntInRange };
+const isEscapeKey = (evt) =>
+  evt.key === 'Escape';
+
+const assembleElements = (container, ...elements) =>
+  elements.forEach((element) => container.append(element));
+
+export {
+  createIdGeneratorInRange,
+  createRandomFloatInRange,
+  getRandomIntInRange,
+  assembleElements,
+  isEscapeKey
+};

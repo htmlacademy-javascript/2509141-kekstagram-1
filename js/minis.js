@@ -1,5 +1,5 @@
 import { createSomePhotos } from './data.js';
-
+import { openModal } from './bigpic.js';
 
 const template = document
   .querySelector('#picture')
@@ -17,6 +17,8 @@ const createPicture = (photo) => {
   img.src = photo.url;
   likes.textContent = photo.likes;
   comments.textContent = photo.comments.length;
+
+  picture.addEventListener('click', () => openModal(photo));
 
   return picture;
 };
