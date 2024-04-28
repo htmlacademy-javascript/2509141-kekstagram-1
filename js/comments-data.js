@@ -1,5 +1,6 @@
 import { getRandomIntInRange, createIdGeneratorInRange } from './util.js';
 
+const MAX_COMMENTS_QUANTITY = 24;
 
 const MESSAGES = [
   'Всё отлично!',
@@ -24,7 +25,7 @@ const createComment = (id) => ({
 
 const createSomeComments = () => {
   const createId = createIdGeneratorInRange(1, 100);
-  const commentsQuantity = getRandomIntInRange(0, 5);
+  const commentsQuantity = getRandomIntInRange(0, MAX_COMMENTS_QUANTITY);
 
   const comments = Array.from(
     {length: commentsQuantity},
