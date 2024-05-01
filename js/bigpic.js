@@ -7,7 +7,6 @@ const modal = document.querySelector('.big-picture');
 const body = document.querySelector('body');
 const closeBtn = modal.querySelector('.big-picture__cancel');
 const loadCommentsBtn = modal.querySelector('.comments-loader');
-const allCommentsCount = modal.querySelector('.comments-count');
 const shownComments = modal.querySelector('.social__comments');
 
 
@@ -19,8 +18,7 @@ const setLoadCommentsBtnVisibility = (shownCommentsCount) => {
   }
 };
 
-// #1 Подобающее использование замыкания?
-// Особенно смущает подвешенная заготовка функции loadNextPartOfCommentElements
+
 const createCommentLoader = (comments) => {
   shownComments.innerHTML = '';
 
@@ -43,19 +41,14 @@ const createCommentLoader = (comments) => {
 let loadNextPartOfCommentElements;
 
 
-// #2 Было бы проще и логичнее заменить разметку "5 из <span class="comments-count">125</span> комментариев"
-// на "<span class="shown-comments">5</span> из <span class="comments-count">125</span> комментариев"
-// А также удалить из разметки два исходных комментария
 const setCommentsCount = () => {
-  const field = modal.querySelector('.social__comment-count');
+  const currentCount = modal.querySelector('.social__comment-count').childNodes[0];
 
-  field.innerHTML = `${shownComments.children.length} из `;
-  field.append(allCommentsCount);
-  field.insertAdjacentText('beforeend', ' комментариев');
+  currentCount.textContent = `${shownComments.children.length} из `;
 };
 
 const setComments = (comments) => {
-  allCommentsCount.textContent = comments.length;
+  modal.querySelector('.comments-count').textContent = comments.length;
 
   loadNextPartOfCommentElements = createCommentLoader(comments);
   loadCommentsBtn.addEventListener('click', loadNextPartOfCommentElements);
@@ -100,7 +93,6 @@ const adjustModal = () => {
 
   document.addEventListener('keydown', onDocumentKeydown);
   closeBtn.addEventListener('click', hide);
-
 };
 
 const openModal = (photo) => {
