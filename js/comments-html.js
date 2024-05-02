@@ -1,41 +1,13 @@
-import { assembleElements } from './util.js';
+import { createCommentElement } from './comment-html.js';
 
 
-const createCommentContainer = () => {
-  const li = document.createElement('li');
-  li.classList.add('social__comment');
+const COMMENTS_LOAD_QUANTITY = 5;
 
-  return li;
-};
 
-const createAvatar = ({ avatar, name }) => {
-  const img = document.createElement('img');
+const modal = document.querySelector('.big-picture');
+const loadCommentsBtn = modal.querySelector('.comments-loader');
+const shownComments = modal.querySelector('.social__comments');
 
-  img.classList.add('social__picture');
-  img.src = avatar;
-  img.alt = name;
-  img.width = img.height = 35;
-
-  return img;
-};
-
-const createTextElement = (message) => {
-  const p = document.createElement('p');
-  p.classList.add('social__text');
-  p.textContent = message;
-
-  return p;
-};
-
-const createCommentElement = (comment) => {
-  const li = createCommentContainer();
-  const img = createAvatar(comment);
-  const p = createTextElement(comment.message);
-
-  assembleElements(li, img, p);
-
-  return li;
-};
 
 const createCommentElementsCollection = (comments) => {
   const fragment = document.createDocumentFragment();
@@ -50,5 +22,60 @@ const createCommentElementsCollection = (comments) => {
   return fragment;
 };
 
+const setLoadCommentsBtnVisibility = (shownCommentsCount) => {
+  if (shownCommentsCount === 0) {
+    loadCommentsBtn.classList.add('hidden');
+  } else {
+    loadCommentsBtn.classList.remove('hidden');
+  }
+};
 
-export { createCommentElementsCollection };
+const createCommentsPortion = (comments) => {
+  const fragment = document.createDocumentFragment();
+
+  let maxCount = Math.min(comments.length, COMMENTS_LOAD_QUANTITY);
+  while (maxCount > 0) {
+    fragment.append(comments.item(0));
+    maxCount--;
+  }
+
+  return fragment;
+};
+
+const createCommentLoader = (comments) => {
+  shownComments.innerHTML = '';
+
+  comments = createCommentElementsCollection(comments).children;
+
+  return function () {
+    const fragment = createCommentsPortion(comments);
+    shownComments.append(fragment);
+
+    setLoadCommentsBtnVisibility(comments.length);
+  };
+};
+let loadNextPartOfCommentElements;
+
+const setCommentsCount = () => {
+  const currentCount = modal.querySelector('.social__comment-count').childNodes[0];
+  currentCount.textContent = `${shownComments.children.length} из `;
+};
+
+
+const setComments = (comments) => {
+  modal.querySelector('.comments-count').textContent = comments.length;
+
+  loadNextPartOfCommentElements = createCommentLoader(comments);
+  loadCommentsBtn.addEventListener('click', loadNextPartOfCommentElements);
+  loadCommentsBtn.addEventListener('click', setCommentsCount);
+  loadCommentsBtn.click();
+};
+
+
+const clearLoadCommentsBtn = () => {
+  loadCommentsBtn.removeEventListener('click', setCommentsCount);
+  loadCommentsBtn.removeEventListener('click', loadNextPartOfCommentElements);
+};
+
+
+export { clearLoadCommentsBtn, setComments };
