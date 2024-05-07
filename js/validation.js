@@ -1,4 +1,4 @@
-import { isEscapeKey } from './util.js';
+import { isEscapeKey, isUnique } from './util.js';
 
 const form = document.querySelector('.img-upload__form');
 const message = document
@@ -31,44 +31,25 @@ const onErrorMouseup = (evt) => {
   }
 };
 
-const hashReg = /^#[a-zа-яё0-9]{1, 19}$/i;
 
-const isValidHash = (value) => {
-  // #1 Здесь бы удалить все return false кроме, но eslint - no-fallthrough
-  // Почему? Достойно ли вообще так использовать switch?
-  switch (true) {
-    // хэш-тег начинается с символа #
-    case (value[0] !== '#'):
-      return false;
-    // хеш-тег не может состоять только из одной решётки
-    case (value === '#'):
-      return false;
-    // максимальная длина одного хэш-тега 20 символов, включая решётку
-    case (value.length > 20):
-      return false;
-  }
-  return true;
-};
+const isValidhashtag = (value) =>
+  (value === '') ? (true) : (/^#[a-zа-яё0-9]{1, 19}$/i).test(value);
 
-const isUniqueHash = (hash, index, arr) => {
+const validateHashtagCollection = (string) => {
   // хэш-теги нечувствительны к регистру
-  hash = hash.toLowerCase();
+  string = string.toLowerCase();
 
-  return arr.indexOf(hash) === index;
-};
-
-const validateHashCollection = (string) => {
   // хэш-теги разделяются пробелами
-  const hashes = string.split(' ');
+  const hashtags = string.split(' ');
 
   // нельзя указать больше пяти хэш-тегов
-  if (hashes.length > 5) {
+  if (hashtags.length > 5) {
     return false;
   }
 
   // один и тот же хэш-тег не может быть использован дважды
-  const allUnique = hashes.every(isUniqueHash);
-  const allValid = hashes.every(isValidHash);
+  const allUnique = hashtags.every(isUnique);
+  const allValid = hashtags.every(isValidhashtag);
 
   return allUnique && allValid;
 };
@@ -88,16 +69,13 @@ const showError = () => {
 
 pristine.addValidator(
   form.querySelector('.text__hashtags'),
-  validateHashCollection,
+  validateHashtagCollection,
   showError
 );
 
 
-const validateDescription = (string) => {
-  if (string.length > 140) {
-    return false;
-  }
-};
+const validateDescription = (string) =>
+  string.length <= 140;
 
 pristine.addValidator(
   form.querySelector('.text__description'),

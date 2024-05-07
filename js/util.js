@@ -10,6 +10,9 @@ const getRandomIntInRange = (min, max) =>
 const isEscapeKey = (evt) =>
   evt.key === 'Escape';
 
+const isUnique = (value, index, arr) =>
+  arr.indexOf(value) === index;
+
 const assembleElements = (container, ...elements) =>
   elements.forEach((element) => container.append(element));
 
@@ -18,5 +21,6 @@ export {
   createRandomFloatInRange,
   getRandomIntInRange,
   assembleElements,
-  isEscapeKey
+  isEscapeKey,
+  isUnique
 };
