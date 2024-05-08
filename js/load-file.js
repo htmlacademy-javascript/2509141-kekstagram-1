@@ -28,10 +28,15 @@ const openModal = () => {
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
+const disableEscOnFocus = (selector) =>
+  modal.querySelector(selector).addEventListener('keydown', (evt) => evt.stopPropagation());
+
 const activateModal = () => {
   closeBtn.addEventListener('click', hide);
   input.addEventListener('change', openModal);
+  ['.text__hashtags', '.text__description'].forEach(disableEscOnFocus);
 };
+
 
 activateModal();
 openModal(); // Временно

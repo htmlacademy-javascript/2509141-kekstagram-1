@@ -7,10 +7,6 @@ const message = document
   .querySelector('.error')
   .cloneNode(true);
 
-const pristine = new Pristine(form, {
-  classTo: 'img-upload__field-wrapper',
-  errorTextParent: 'img-upload__field-wrapper',
-}, false);
 
 const hide = () => {
   message.remove();
@@ -33,9 +29,9 @@ const onErrorMouseup = (evt) => {
 
 
 const isValidhashtag = (value) =>
-  (value === '') ? (true) : (/^#[a-zа-яё0-9]{1, 19}$/i).test(value);
+  (value === '') ? (true) : (/^#[a-zа-яё0-9]{1,19}$/i).test(value);
 
-const validateHashtagCollection = (string) => {
+const validateHashtags = (string) => {
   // хэш-теги нечувствительны к регистру
   string = string.toLowerCase();
 
@@ -60,22 +56,20 @@ const showError = () => {
   closeBtn.addEventListener('click', hide);
   document.addEventListener('mouseup', onErrorMouseup);
   document.addEventListener('keydown', onDocumentKeydown);
-  document.addEventListener('keydown', onDocumentKeydown);
 
 
   const body = document.querySelector('body');
   body.append(message);
 };
 
-pristine.addValidator(
-  form.querySelector('.text__hashtags'),
-  validateHashtagCollection,
-  showError
-);
-
 
 const validateDescription = (string) =>
   string.length <= 140;
+
+const pristine = new Pristine(form, {
+  classTo: 'img-upload__field-wrapper',
+  errorTextParent: 'img-upload__field-wrapper',
+});
 
 pristine.addValidator(
   form.querySelector('.text__description'),
@@ -83,9 +77,15 @@ pristine.addValidator(
   showError
 );
 
+pristine.addValidator(
+  form.querySelector('.text__hashtags'),
+  validateHashtags,
+  showError
+);
+
 form.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  pristine.validate();
+  const isValid = pristine.validate();
 });
 
 export { showError };
