@@ -1,5 +1,5 @@
-import { createSomePhotos } from './data.js';
-import { openModal } from './bigpic.js';
+import { createSomePhotos } from './photo-data.js';
+import { openModal } from './modal-bigpic.js';
 
 const template = document
   .querySelector('#picture')
