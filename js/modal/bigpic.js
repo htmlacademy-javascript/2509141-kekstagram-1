@@ -1,5 +1,5 @@
-import { createEscTumbler, hideModal, showModal } from './util.js';
-import { setComments, clearLoadCommentsBtn } from './comments-html.js';
+import { createEscTumbler, hideModal, showModal } from '../util.js';
+import { setComments, clearLoadCommentsBtn } from '../comments/comments-html.js';
 
 
 const modal = document.querySelector('.big-picture');

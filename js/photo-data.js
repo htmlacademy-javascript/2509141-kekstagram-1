@@ -1,13 +1,12 @@
 import { createIdGeneratorInRange, getRandomIntInRange } from './util.js';
-import { createSomeComments } from './comments-data.js';
+import { createSomeComments } from './comments/comments-data.js';
+
 
 const TEST_PHOTOS_QUANTITY = 25;
-
 const idCount = {
   MIN: 1,
   MAX: 25
 };
-
 const likesCount = {
   MIN: 15,
   MAX: 200
@@ -30,5 +29,6 @@ const createSomePhotos = (quantity = TEST_PHOTOS_QUANTITY) => {
     () => createPhoto(createId())
   );
 };
+
 
 export { createSomePhotos };

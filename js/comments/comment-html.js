@@ -1,4 +1,4 @@
-import { assembleElements } from './util.js';
+import { assembleElements } from '../util.js';
 
 
 const createCommentContainer = () => {
