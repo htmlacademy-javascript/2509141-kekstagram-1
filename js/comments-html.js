@@ -47,7 +47,7 @@ const createCommentLoader = (comments) => {
 
   comments = createCommentElementsCollection(comments).children;
 
-  return function () {
+  return () => {
     const fragment = createCommentsPortion(comments);
     shownComments.append(fragment);
 
