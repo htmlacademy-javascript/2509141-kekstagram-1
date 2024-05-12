@@ -14,14 +14,10 @@ const addNewEffect = (effect) => {
   imgContainer.style.removeProperty('filter');
 };
 
-const changeSlider = (effect) => {
-  updateSlider(effect);
-};
-
 const applyEffect = (effect) => {
   resetEffect();
   addNewEffect(effect);
-  changeSlider(effect);
+  updateSlider(effect);
 };
 
 
