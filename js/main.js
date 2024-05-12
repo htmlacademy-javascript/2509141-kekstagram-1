@@ -1,7 +1,8 @@
-// Как правильнее подключить pristine? Здесь, или в index.html?
-// import '../vendor/pristine/pristine.min.js';
 import { fillPictures } from './minis.js';
-import './modal-photo-edit.js';
-import './validation.js';
+import './modal/photo-edit.js';
+import './validation/validation.js';
+import './scale-control.js';
+import './effects/level.js';
+import './effects/selection.js';
 
 fillPictures();

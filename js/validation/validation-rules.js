@@ -1,4 +1,4 @@
-import { isUnique } from './util.js';
+import { isUnique } from '../util.js';
 
 
 const isValidhashtag = (value) =>

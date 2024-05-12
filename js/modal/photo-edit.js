@@ -1,4 +1,4 @@
-import { createEscTumbler, hideModal, showModal } from './util.js';
+import { createEscTumbler, hideModal, showModal } from '../util.js';
 
 
 const input = document.querySelector('#upload-file');
@@ -18,6 +18,7 @@ const openModal = () =>
 
 const disableEscOnFocus = (selector) =>
   modal.querySelector(selector).addEventListener('keydown', (evt) => evt.stopPropagation());
+
 
 const activateModal = () => {
   const closeBtn = document.querySelector('#upload-cancel');

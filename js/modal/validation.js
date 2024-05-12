@@ -1,4 +1,4 @@
-import { createEscTumbler } from './util.js';
+import { createEscTumbler } from '../util.js';
 
 
 const message = document
@@ -34,5 +34,6 @@ const showError = () => {
   const body = document.querySelector('body');
   body.append(message);
 };
+
 
 export { showError };
