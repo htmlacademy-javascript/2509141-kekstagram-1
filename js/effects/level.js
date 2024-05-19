@@ -1,87 +1,4 @@
-const EFFECTS = {
-  none: {
-    filter: {
-      start: '',
-      end: ''
-    },
-    options: { }
-  },
-
-  chrome: {
-    filter: {
-      start: 'grayscale(',
-      end: ')'
-    },
-    options: {
-      range: {
-        min: 0,
-        max: 1
-      },
-      start: 1,
-      step: 0.1,
-    }
-  },
-
-  sepia: {
-    filter: {
-      start: 'sepia(',
-      end: ')'
-    },
-    options: {
-      range: {
-        min: 0,
-        max: 1
-      },
-      start: 1,
-      step: 0.1,
-    },
-  },
-
-  marvin: {
-    filter: {
-      start: 'invert(',
-      end: '%)'
-    },
-    options: {
-      range: {
-        min: 0,
-        max: 100
-      },
-      start: 100,
-      step: 1,
-    }
-  },
-
-  phobos: {
-    filter: {
-      start: 'blur(',
-      end: 'px)'
-    },
-    options: {
-      range: {
-        min: 0,
-        max: 3
-      },
-      start: 3,
-      step: 0.1
-    }
-  },
-
-  heat: {
-    filter: {
-      start: 'brightness(',
-      end: ')'
-    },
-    options: {
-      range: {
-        min: 1,
-        max: 3
-      },
-      start: 3,
-      step: 0.1
-    }
-  }
-};
+import { effects } from './effects.js';
 
 
 const sliderContainer = document.querySelector('.img-upload__effect-level');
@@ -104,7 +21,7 @@ noUiSlider.create(slider, {
 
 
 const getFilterValue = (value) => {
-  const styleParts = EFFECTS[currentEffect].filter;
+  const styleParts = effects[currentEffect].filter;
   return styleParts.start + value + styleParts.end;
 };
 
@@ -126,7 +43,7 @@ const updateSlider = (effect) => {
 
   toggleSliderVisibility(effect);
 
-  slider.noUiSlider.updateOptions(EFFECTS[currentEffect].options);
+  slider.noUiSlider.updateOptions(effects[currentEffect].options);
 };
 
 
