@@ -1,3 +1,8 @@
+const ScaleLimit = {
+  MIN: 25,
+  MAX: 100
+};
+
 const scale = document.querySelector('.scale');
 const zoomOutBtn = scale.querySelector('.scale__control--smaller');
 const zoomInBtn = scale.querySelector('.scale__control--bigger');
@@ -15,8 +20,8 @@ const zoomIn = () => {
   let value = parseInt(scaleValue.value, 10);
 
   value += 25;
-  if (value > 100) {
-    value = 100;
+  if (value > ScaleLimit.MAX) {
+    value = ScaleLimit.MAX;
   }
 
   scaleValue.value = `${value}%`;
@@ -27,8 +32,8 @@ const zoomOut = () => {
   let value = parseInt(scaleValue.value, 10);
 
   value -= 25;
-  if (value < 0) {
-    value = 0;
+  if (value < ScaleLimit.MIN) {
+    value = ScaleLimit.MIN;
   }
 
   scaleValue.value = `${value}%`;
