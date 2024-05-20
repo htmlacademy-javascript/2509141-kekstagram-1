@@ -1,19 +1,19 @@
-import { createEscTumbler, hideModal, showModal } from '../util.js';
+import { createEscListener, hideModal, showModal } from './visibility-common.js';
 
 
 const input = document.querySelector('#upload-file');
 const modal = document.querySelector('.img-upload__overlay');
 
-const toggleEscHandler = createEscTumbler(hide);
+const escListener = createEscListener(hide);
 
 function hide () {
-  hideModal(modal, toggleEscHandler);
+  hideModal(modal, escListener);
 
   input.value = '';
 }
 
 const openModal = () =>
-  showModal(modal, toggleEscHandler);
+  showModal(modal, escListener);
 
 
 const disableEscOnFocus = (selector) =>

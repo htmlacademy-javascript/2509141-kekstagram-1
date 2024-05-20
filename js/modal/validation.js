@@ -1,4 +1,4 @@
-import { createEscTumbler } from '../util.js';
+import { createEscListener } from './visibility-common.js';
 
 
 const message = document
@@ -7,13 +7,13 @@ const message = document
   .querySelector('.error')
   .cloneNode(true);
 
-const toggleEscHandler = createEscTumbler(close);
+const escListener = createEscListener(close);
 
 
 function close () {
   message.remove();
 
-  toggleEscHandler();
+  escListener.off();
 }
 
 const onErrorMouseup = (evt) => {
@@ -28,8 +28,7 @@ const showError = () => {
 
   closeBtn.addEventListener('click', close);
   document.addEventListener('mouseup', onErrorMouseup);
-  toggleEscHandler();
-  // Как закрывать на Esc только окно с ошибкой, но не окно редактирования изображения, когда открыты оба?
+  escListener.on();
 
   const body = document.querySelector('body');
   body.append(message);
