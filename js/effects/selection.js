@@ -1,8 +1,9 @@
-import { updateSlider } from './level.js';
+import { updateSlider } from './slider-control.js';
 
 
 const effectElements = document.querySelectorAll('.effects__radio');
 const imgContainer = document.querySelector('.img-upload__preview');
+
 
 const resetEffect = () => {
   const currentEffect = imgContainer.classList.item(1);
@@ -21,7 +22,7 @@ const applyEffect = (effect) => {
 };
 
 
-const activateEffectsSelector = () => {
+const initEffectSelector = () => {
   applyEffect('none');
 
   const addHandler = (element) =>
@@ -31,4 +32,4 @@ const activateEffectsSelector = () => {
 };
 
 
-activateEffectsSelector();
+export { initEffectSelector };
