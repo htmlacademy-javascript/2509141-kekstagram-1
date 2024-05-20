@@ -41,10 +41,10 @@ const zoomOut = () => {
 };
 
 
-const activateScale = () => {
+const initScaleControl = () => {
   scaleValue.value = '100%';
   zoomInBtn.addEventListener('click', zoomIn);
   zoomOutBtn.addEventListener('click', zoomOut);
 };
 
-activateScale();
+export { initScaleControl };

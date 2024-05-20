@@ -20,7 +20,7 @@ const disableEscOnFocus = (selector) =>
   modal.querySelector(selector).addEventListener('keydown', (evt) => evt.stopPropagation());
 
 
-const activateModal = () => {
+const initEditPhotoModal = () => {
   const closeBtn = document.querySelector('#upload-cancel');
 
   closeBtn.addEventListener('click', hide);
@@ -29,4 +29,4 @@ const activateModal = () => {
 };
 
 
-activateModal();
+export { initEditPhotoModal };
