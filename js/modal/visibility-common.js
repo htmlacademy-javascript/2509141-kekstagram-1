@@ -3,10 +3,14 @@ import { isEscapeKey } from '../util.js';
 
 const body = document.querySelector('body');
 
+
 const hideModal = (modal, escListener) => {
+  if (document.querySelector('.error')) {
+    return;
+  }
+
   body.classList.remove('modal-open');
   modal.classList.add('hidden');
-
   escListener.off();
 };
 

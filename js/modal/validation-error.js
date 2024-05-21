@@ -10,18 +10,19 @@ const message = document
 const escListener = createEscListener(close);
 
 
-function close () {
-  message.remove();
-
-  escListener.off();
-}
-
 const onErrorMouseup = (evt) => {
   const container = message.querySelector('.error__inner');
   if (!container.contains(evt.target)) {
     close();
   }
 };
+
+function close () {
+  message.remove();
+
+  escListener.off();
+  document.removeEventListener('mouseup', onErrorMouseup);
+}
 
 const showError = () => {
   const closeBtn = message.querySelector('.error__button');

@@ -1,4 +1,4 @@
-import { showError } from '../modal/validation.js';
+import { showError } from '../modal/validation-error.js';
 import { validateHashtags, validateDescription } from './validation-rules.js';
 
 
