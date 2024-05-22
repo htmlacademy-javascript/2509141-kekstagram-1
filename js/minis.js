@@ -1,5 +1,6 @@
-import { createSomePhotos } from './photo-data.js';
 import { openModal } from './modal/bigpic.js';
+import { createLoader } from './load.js';
+
 
 const template = document
   .querySelector('#picture')
@@ -23,9 +24,8 @@ const createPicture = (photo) => {
   return picture;
 };
 
-const createPicFragment = () => {
+const createPicFragment = (photos) => {
   const fragment = document.createDocumentFragment();
-  const photos = createSomePhotos();
 
   photos.forEach((photo) => {
     const picture = createPicture(photo);
@@ -35,12 +35,15 @@ const createPicFragment = () => {
   return fragment;
 };
 
-const fillPictures = () => {
-  const picFragment = createPicFragment();
+
+const fill = (pictures) => {
+  const picFragment = createPicFragment(pictures);
   const pictureContainer = document.querySelector('.pictures');
 
   pictureContainer.append(picFragment);
 };
+
+const fillPictures = createLoader(fill);
 
 
 export { fillPictures };
