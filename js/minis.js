@@ -1,5 +1,5 @@
 import { openModal } from './modal/bigpic.js';
-import { createLoader } from './load.js';
+import { getData } from './api.js';
 
 
 const template = document
@@ -43,7 +43,9 @@ const fill = (pictures) => {
   pictureContainer.append(picFragment);
 };
 
-const fillPictures = createLoader(fill);
+
+const fillPictures = () =>
+  getData().then(fill);
 
 
 export { fillPictures };

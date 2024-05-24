@@ -1,5 +1,6 @@
 import { showError } from '../modal/validation-error.js';
 import { validateHashtags, validateDescription } from './validation-rules.js';
+import { sendData } from '../api.js';
 
 
 const form = document.querySelector('.img-upload__form');
@@ -31,10 +32,13 @@ const addValidators = (pristine) => {
 const addSubmitHandler = (pristine) => {
 
   form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
     const isValid = pristine.validate();
 
-    if (!isValid) {
-      evt.preventDefault();
+    if (isValid) {
+      const formData = new FormData(evt.target);
+      sendData(formData);
     }
   });
 
