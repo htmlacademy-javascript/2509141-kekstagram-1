@@ -1,4 +1,4 @@
-import { updateEffect } from './slider-control.js';
+import { setFilter } from './selection.js';
 
 
 const sliderContainer = document.querySelector('.img-upload__effect-level');
@@ -19,12 +19,13 @@ const createSlider = () => {
 
 };
 
+
 const addUpdateSliderHandler = () => {
 
   slider.noUiSlider.on('update', () => {
     const value = slider.noUiSlider.get();
     levelValue.value = value;
-    updateEffect(value);
+    setFilter(value);
   });
 
 };

@@ -5,6 +5,8 @@ import { sendData } from '../api.js';
 
 const form = document.querySelector('.img-upload__form');
 
+let pristine;
+
 
 const createPristine = () => {
   const config = {
@@ -15,7 +17,7 @@ const createPristine = () => {
   return new Pristine(form, config, false);
 };
 
-const addValidators = (pristine) => {
+const addValidators = () => {
   pristine.addValidator(
     form.querySelector('.text__description'),
     validateDescription,
@@ -29,7 +31,7 @@ const addValidators = (pristine) => {
   );
 };
 
-const addSubmitHandler = (pristine) => {
+const addSubmitHandler = (onSuccess) => {
 
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -38,7 +40,7 @@ const addSubmitHandler = (pristine) => {
 
     if (isValid) {
       const formData = new FormData(evt.target);
-      sendData(formData);
+      sendData(formData).then(onSuccess);
     }
   });
 
@@ -46,10 +48,10 @@ const addSubmitHandler = (pristine) => {
 
 
 const initValidation = () => {
-  const pristine = createPristine();
-  addValidators(pristine);
-  addSubmitHandler(pristine);
+  pristine = createPristine();
+  addValidators();
+  addSubmitHandler();
 };
 
 
-export { initValidation };
+export { initValidation, addSubmitHandler };
