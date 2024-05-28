@@ -1,4 +1,4 @@
-import { showError } from '../modal/validation-error.js';
+import { showResultAlert } from '../modal/result-alert.js';
 import { validateHashtags, validateDescription } from './validation-rules.js';
 import { sendData } from '../api.js';
 
@@ -20,14 +20,12 @@ const createPristine = () => {
 const addValidators = () => {
   pristine.addValidator(
     form.querySelector('.text__description'),
-    validateDescription,
-    showError
+    validateDescription
   );
 
   pristine.addValidator(
     form.querySelector('.text__hashtags'),
-    validateHashtags,
-    showError
+    validateHashtags
   );
 };
 
@@ -40,7 +38,10 @@ const addSubmitHandler = (onSuccess) => {
 
     if (isValid) {
       const formData = new FormData(evt.target);
-      sendData(formData).then(onSuccess);
+      sendData(formData)
+        .then(onSuccess)
+        .then(() => showResultAlert(true))
+        .catch(() => showResultAlert(false));
     }
   });
 
@@ -50,7 +51,6 @@ const addSubmitHandler = (onSuccess) => {
 const initValidation = () => {
   pristine = createPristine();
   addValidators();
-  addSubmitHandler();
 };
 
 

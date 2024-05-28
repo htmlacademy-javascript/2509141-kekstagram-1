@@ -1,6 +1,3 @@
-import { showAlert } from './util.js';
-
-
 const BASE_URL = 'https://28.javascript.htmlacademy.pro/kekstagram';
 const Route = {
   GET_DATA: '/data',
@@ -21,16 +18,20 @@ const makeUrl = (route) =>
 const makeOptions = (method, body) =>
   ({ method, body });
 
-const processResponse = (response) =>
+const processError = (value) => {
+  throw new Error(value);
+};
+
+const processResponse = (response, errorText) =>
   response.ok
     ? response.json()
-    : showAlert(`${response.status} ${response.statusText}`);
+    : processError(errorText);
 
 
 const load = (route, errorText, method = Method.GET, body = null) =>
   fetch(makeUrl(route), makeOptions(method, body))
-    .then(processResponse)
-    .catch(() => showAlert(errorText));
+    .then((response) => processResponse(response, errorText))
+    .catch(() => processError(errorText));
 
 
 const getData = () =>

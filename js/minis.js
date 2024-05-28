@@ -1,5 +1,6 @@
 import { openModal } from './modal/bigpic.js';
 import { getData } from './api.js';
+import { showAlert } from './util.js';
 
 
 const template = document
@@ -45,7 +46,9 @@ const fill = (pictures) => {
 
 
 const fillPictures = () =>
-  getData().then(fill);
+  getData()
+    .then(fill)
+    .catch((errorText) => showAlert(errorText));
 
 
 export { fillPictures };
