@@ -1,32 +1,45 @@
-import { createEscTumbler, hideModal, showModal } from '../util.js';
+import { createEscListener, hideModal, showModal } from './visibility-common.js';
+import { addSubmitHandler } from '../validation/validation.js';
+import { resetScale } from '../scale-control.js';
+import { setDefaultEffect } from '../effects/selection.js';
 
 
-const input = document.querySelector('#upload-file');
-const modal = document.querySelector('.img-upload__overlay');
+const form = document.querySelector('.img-upload__form');
+const input = form.querySelector('#upload-file');
+const modal = form.querySelector('.img-upload__overlay');
 
-const toggleEscHandler = createEscTumbler(hide);
+const escListener = createEscListener(hide);
+
+
+const reset = () => {
+  form.reset();
+  setDefaultEffect();
+};
 
 function hide () {
-  hideModal(modal, toggleEscHandler);
-
-  input.value = '';
+  hideModal(modal, escListener);
+  reset();
 }
 
-const openModal = () =>
-  showModal(modal, toggleEscHandler);
+const openModal = () => {
+  showModal(modal, escListener);
 
+  // ??? Как из js установить значение по умолчанию, чтобы value не сбрасывалось вместе с формой?
+  resetScale();
+};
 
 const disableEscOnFocus = (selector) =>
   modal.querySelector(selector).addEventListener('keydown', (evt) => evt.stopPropagation());
 
 
-const activateModal = () => {
+const initEditPhotoModal = () => {
   const closeBtn = document.querySelector('#upload-cancel');
 
   closeBtn.addEventListener('click', hide);
   input.addEventListener('change', () => openModal());
   ['.text__hashtags', '.text__description'].forEach(disableEscOnFocus);
+  addSubmitHandler(hide);
 };
 
 
-activateModal();
+export { initEditPhotoModal };

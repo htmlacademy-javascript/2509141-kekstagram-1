@@ -1,33 +1,61 @@
-import { showError } from '../modal/validation.js';
+import { showResultAlert } from '../modal/result-alert.js';
 import { validateHashtags, validateDescription } from './validation-rules.js';
+import { sendData } from '../api.js';
 
 
 const form = document.querySelector('.img-upload__form');
 
-
-const pristine = new Pristine(form, {
-  classTo: 'img-upload__field-wrapper',
-  errorTextParent: 'img-upload__field-wrapper',
-}, false);
+let pristine;
 
 
-pristine.addValidator(
-  form.querySelector('.text__description'),
-  validateDescription,
-  showError
-);
+const createPristine = () => {
+  const config = {
+    classTo: 'img-upload__field-wrapper',
+    errorTextParent: 'img-upload__field-wrapper',
+    errorTextClass: 'img-upload__field-wrapper__error',
+    errorClass: 'img-upload__field-wrapper--invalid'
+  };
 
-pristine.addValidator(
-  form.querySelector('.text__hashtags'),
-  validateHashtags,
-  showError
-);
+  return new Pristine(form, config, false);
+};
 
+const addValidators = () => {
+  pristine.addValidator(
+    form.querySelector('.text__description'),
+    validateDescription,
+    'Многа букаф (ˉ﹃ˉ)'
+  );
 
-form.addEventListener('submit', (evt) => {
-  const isValid = pristine.validate();
+  pristine.addValidator(
+    form.querySelector('.text__hashtags'),
+    validateHashtags,
+    'Неправильно (╯°□°）╯︵ ┻━┻'
+  );
+};
 
-  if (!isValid) {
+const addSubmitHandler = (onSuccess) => {
+
+  form.addEventListener('submit', (evt) => {
     evt.preventDefault();
-  }
-});
+
+    const isValid = pristine.validate();
+
+    if (isValid) {
+      const formData = new FormData(evt.target);
+      sendData(formData)
+        .then(onSuccess)
+        .then(() => showResultAlert(true))
+        .catch(() => showResultAlert(false));
+    }
+  });
+
+};
+
+
+const initValidation = () => {
+  pristine = createPristine();
+  addValidators();
+};
+
+
+export { initValidation, addSubmitHandler };

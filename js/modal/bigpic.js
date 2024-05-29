@@ -1,11 +1,11 @@
-import { createEscTumbler, hideModal, showModal } from '../util.js';
 import { setComments, clearLoadCommentsBtn } from '../comments/comments-html.js';
+import { createEscListener, hideModal, showModal } from './visibility-common.js';
 
 
 const modal = document.querySelector('.big-picture');
 const closeBtn = modal.querySelector('.big-picture__cancel');
 
-const toggleEscHandler = createEscTumbler(hide);
+const escListener = createEscListener(hide);
 
 
 const setModalContent = ({ url, likes, comments, description }) => {
@@ -20,7 +20,7 @@ const setModalContent = ({ url, likes, comments, description }) => {
 
 
 function hide () {
-  hideModal(modal, toggleEscHandler);
+  hideModal(modal, escListener);
 
   closeBtn.removeEventListener('click', hide);
 
@@ -29,7 +29,7 @@ function hide () {
 
 const openModal = (photo) => {
   setModalContent(photo);
-  showModal(modal, toggleEscHandler);
+  showModal(modal, escListener);
 
   closeBtn.addEventListener('click', hide);
 };

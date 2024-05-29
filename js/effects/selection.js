@@ -1,28 +1,53 @@
-import { updateSlider } from './level.js';
+import { updateSlider } from './slider-control.js';
+import { effects } from './effects.js';
 
 
 const effectElements = document.querySelectorAll('.effects__radio');
 const imgContainer = document.querySelector('.img-upload__preview');
 
-const resetEffect = () => {
-  const currentEffect = imgContainer.classList.item(1);
-  imgContainer.classList.remove(currentEffect);
+let currentEffectName = '';
+
+
+const getFilterValue = (value) => {
+  const styleParts = effects[currentEffectName].filter;
+  return styleParts.start + value + styleParts.end;
 };
-const addNewEffect = (effect) => {
-  effect = `effects__preview--${effect}`;
-  imgContainer.classList.add(effect);
+const setFilter = (value) => {
+  if (currentEffectName) {
+    imgContainer.style['filter'] = getFilterValue(value);
+  }
+};
+
+
+const getEffectValue = (effect) =>
+  `effects__preview--${effect}`;
+
+const clearEffect = () => {
+  const effect = getEffectValue(currentEffectName);
+  imgContainer.classList.remove(effect);
   imgContainer.style.removeProperty('filter');
 };
 
+const addNewEffect = (effect) => {
+  currentEffectName = effect;
+
+  effect = getEffectValue(effect);
+  imgContainer.classList.add(effect);
+};
+
 const applyEffect = (effect) => {
-  resetEffect();
+  clearEffect();
   addNewEffect(effect);
   updateSlider(effect);
 };
 
-
-const activateEffectsSelector = () => {
+const setDefaultEffect = () =>
   applyEffect('none');
+
+
+const initEffectSelector = () => {
+  addNewEffect('none');
+  updateSlider('none');
 
   const addHandler = (element) =>
     element.addEventListener('change', () => applyEffect(element.value));
@@ -31,4 +56,4 @@ const activateEffectsSelector = () => {
 };
 
 
-activateEffectsSelector();
+export { initEffectSelector, setFilter, setDefaultEffect };

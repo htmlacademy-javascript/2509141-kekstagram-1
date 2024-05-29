@@ -1,3 +1,10 @@
+const ScaleOptions = {
+  MIN: 25,
+  MAX: 100,
+  STEP: 25,
+  DEFAULT: 100
+};
+
 const scale = document.querySelector('.scale');
 const zoomOutBtn = scale.querySelector('.scale__control--smaller');
 const zoomInBtn = scale.querySelector('.scale__control--bigger');
@@ -10,36 +17,42 @@ const changeImg = (value) => {
   imgContainer.style['transform'] = `scale(${value})`;
 };
 
+const setScale = (value) => {
+  scaleValue.value = `${value}%`;
+  changeImg(value);
+};
+const resetScale = () =>
+  setScale(ScaleOptions.DEFAULT);
+
 
 const zoomIn = () => {
   let value = parseInt(scaleValue.value, 10);
 
-  value += 25;
-  if (value > 100) {
-    value = 100;
+  value += ScaleOptions.STEP;
+  if (value > ScaleOptions.MAX) {
+    value = ScaleOptions.MAX;
   }
 
-  scaleValue.value = `${value}%`;
-  changeImg(value);
+  setScale(value);
 };
 
 const zoomOut = () => {
   let value = parseInt(scaleValue.value, 10);
 
-  value -= 25;
-  if (value < 0) {
-    value = 0;
+  value -= ScaleOptions.STEP;
+  if (value < ScaleOptions.MIN) {
+    value = ScaleOptions.MIN;
   }
 
-  scaleValue.value = `${value}%`;
-  changeImg(value);
+  setScale(value);
 };
 
 
-const activateScale = () => {
-  scaleValue.value = '100%';
+const initScaleControl = () => {
+  resetScale();
   zoomInBtn.addEventListener('click', zoomIn);
   zoomOutBtn.addEventListener('click', zoomOut);
 };
 
-activateScale();
+
+export { initScaleControl, resetScale };

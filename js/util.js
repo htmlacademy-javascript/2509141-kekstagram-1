@@ -16,44 +16,26 @@ const isUnique = (value, index, arr) =>
 const assembleElements = (container, ...elements) =>
   elements.forEach((element) => container.append(element));
 
+const showAlert = (message, timeout = 5000) => {
+  const alertContainer = document.createElement('div');
 
-const createEscTumbler = (cb) => {
+  alertContainer.style.zIndex = '100';
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.left = '0';
+  alertContainer.style.top = '0';
+  alertContainer.style.right = '0';
+  alertContainer.style.padding = '10px 3px';
+  alertContainer.style.fontSize = '30px';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.backgroundColor = 'red';
 
-  const onDocumentEscKeydown = (evt) => {
-    if (isEscapeKey(evt)) {
-      cb();
-    }
-  };
+  alertContainer.textContent = message;
 
-  const add = () => {
-    document.addEventListener('keydown', onDocumentEscKeydown);
-    return true;
-  };
-  const remove = () => {
-    document.removeEventListener('keydown', onDocumentEscKeydown);
-    return false;
-  };
+  document.body.append(alertContainer);
 
-
-  let isModalOpen = false;
-  return () => {
-    isModalOpen = isModalOpen ? remove() : add();
-  };
+  setTimeout(alertContainer.remove, timeout);
 };
 
-const hideModal = (modal, toggleEscHandler) => {
-  document.querySelector('body').classList.remove('modal-open');
-  modal.classList.add('hidden');
-
-  toggleEscHandler();
-};
-
-const showModal = (modal, toggleEscHandler) => {
-  document.querySelector('body').classList.add('modal-open');
-  modal.classList.remove('hidden');
-
-  toggleEscHandler();
-};
 
 export {
   createIdGeneratorInRange,
@@ -61,8 +43,6 @@ export {
   getRandomIntInRange,
   assembleElements,
   isEscapeKey,
-  createEscTumbler,
-  hideModal,
-  showModal,
+  showAlert,
   isUnique
 };
