@@ -12,6 +12,8 @@ const createPristine = () => {
   const config = {
     classTo: 'img-upload__field-wrapper',
     errorTextParent: 'img-upload__field-wrapper',
+    errorTextClass: 'img-upload__field-wrapper__error',
+    errorClass: 'img-upload__field-wrapper--invalid'
   };
 
   return new Pristine(form, config, false);
@@ -20,12 +22,14 @@ const createPristine = () => {
 const addValidators = () => {
   pristine.addValidator(
     form.querySelector('.text__description'),
-    validateDescription
+    validateDescription,
+    'Многа букаф (ˉ﹃ˉ)'
   );
 
   pristine.addValidator(
     form.querySelector('.text__hashtags'),
-    validateHashtags
+    validateHashtags,
+    'Неправильно (╯°□°）╯︵ ┻━┻'
   );
 };
 
