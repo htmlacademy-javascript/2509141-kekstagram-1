@@ -2,6 +2,7 @@ import { createEscListener, hideModal, showModal } from './visibility-common.js'
 import { addSubmitHandler } from '../validation/validation.js';
 import { resetScale } from '../scale-control.js';
 import { setDefaultEffect } from '../effects/selection.js';
+import { resetValidation } from '../validation/validation.js';
 
 
 const form = document.querySelector('.img-upload__form');
@@ -13,6 +14,7 @@ const escListener = createEscListener(hide);
 
 const reset = () => {
   form.reset();
+  resetValidation();
   setDefaultEffect();
 };
 
