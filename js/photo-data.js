@@ -1,4 +1,5 @@
-import { createIdGeneratorInRange, getRandomIntInRange } from './util.js';
+import { createIdGeneratorInRange } from './util.js';
+import { getRandomIntInRange } from './random.js';
 import { createSomeComments } from './comments/comments-data.js';
 
 

@@ -52,10 +52,14 @@ const addSubmitHandler = (onSuccess) => {
 };
 
 
+const resetValidation = () =>
+  pristine.reset();
+
+
 const initValidation = () => {
   pristine = createPristine();
   addValidators();
 };
 
 
-export { initValidation, addSubmitHandler };
+export { initValidation, addSubmitHandler, resetValidation };
