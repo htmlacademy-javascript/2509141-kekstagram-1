@@ -1,4 +1,6 @@
-import { getRandomIntInRange, createIdGeneratorInRange } from '../util.js';
+import { createIdGeneratorInRange } from '../util.js';
+import { getRandomIntInRange } from '../random.js';
+
 
 const MAX_COMMENTS_QUANTITY = 24;
 

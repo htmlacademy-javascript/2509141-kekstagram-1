@@ -1,6 +1,7 @@
 import { openModal } from './modal/bigpic.js';
 import { getData } from './api.js';
 import { showAlert } from './util.js';
+import { showFilters } from './filters.js';
 
 
 const template = document
@@ -9,33 +10,39 @@ const template = document
   .querySelector('.picture');
 
 
-const createPicture = (photo) => {
+const createPicture = (picData) => {
   const picture = template.cloneNode(true);
 
   const img = picture.querySelector('.picture__img');
   const likes = picture.querySelector('.picture__likes');
   const comments = picture.querySelector('.picture__comments');
 
-  img.src = photo.url;
-  likes.textContent = photo.likes;
-  comments.textContent = photo.comments.length;
+  img.src = picData.url;
+  likes.textContent = picData.likes;
+  comments.textContent = picData.comments.length;
 
-  picture.addEventListener('click', () => openModal(photo));
+  picture.addEventListener('click', () => openModal(picData));
 
   return picture;
 };
 
-const createPicFragment = (photos) => {
+const createPicFragment = (picsData) => {
   const fragment = document.createDocumentFragment();
 
-  photos.forEach((photo) => {
-    const picture = createPicture(photo);
+  picsData.forEach((pic) => {
+    const picture = createPicture(pic);
     fragment.append(picture);
   });
 
   return fragment;
 };
 
+
+// ??? Есть более эффективный способ, чем удалять каждое изображение по одному?
+const clearMinis = () => {
+  const minis = document.querySelectorAll('.picture');
+  minis.forEach((el) => el.remove());
+};
 
 const fill = (pictures) => {
   const picFragment = createPicFragment(pictures);
@@ -44,11 +51,22 @@ const fill = (pictures) => {
   pictureContainer.append(picFragment);
 };
 
+const reFill = (pics) => {
+  clearMinis();
+  fill(pics);
+};
 
-const fillPictures = () =>
+
+const setPictures = (pics) => {
+  fill(pics);
+  showFilters(reFill, pics);
+};
+
+
+const loadPictures = () =>
   getData()
-    .then(fill)
+    .then(setPictures)
     .catch((errorText) => showAlert(errorText));
 
 
-export { fillPictures };
+export { loadPictures };

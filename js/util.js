@@ -1,12 +1,6 @@
 const createIdGeneratorInRange = (min, max) =>
   () => min <= max ? min++ : null;
 
-const createRandomFloatInRange = (min, max) =>
-  min + Math.random() * (max + 1 - min);
-
-const getRandomIntInRange = (min, max) =>
-  Math.floor(createRandomFloatInRange(min, max));
-
 const isEscapeKey = (evt) =>
   evt.key === 'Escape';
 
@@ -16,7 +10,17 @@ const isUnique = (value, index, arr) =>
 const assembleElements = (container, ...elements) =>
   elements.forEach((element) => container.append(element));
 
-const showAlert = (message, timeout = 5000) => {
+function debounce (callback, timeoutDelay = 500) {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
+const showAlert = (message) => {
   const alertContainer = document.createElement('div');
 
   alertContainer.style.zIndex = '100';
@@ -32,17 +36,14 @@ const showAlert = (message, timeout = 5000) => {
   alertContainer.textContent = message;
 
   document.body.append(alertContainer);
-
-  setTimeout(alertContainer.remove, timeout);
 };
 
 
 export {
   createIdGeneratorInRange,
-  createRandomFloatInRange,
-  getRandomIntInRange,
   assembleElements,
   isEscapeKey,
   showAlert,
-  isUnique
+  isUnique,
+  debounce
 };
