@@ -20,9 +20,14 @@ const sortByComments = (arr) => {
 
 const switchActiveFilter = (target) => {
   const current = document.querySelector('.img-filters__button--active');
-  current.classList.remove('img-filters__button--active');
 
+  if (current === target) {
+    return false;
+  }
+
+  current.classList.remove('img-filters__button--active');
   target.classList.add('img-filters__button--active');
+  return true;
 };
 
 
@@ -30,8 +35,12 @@ const setFilterClick = (target, filterOut) => {
   const debouncedFill = debounce(filterOut, RERENDER_DELAY);
 
   const onFilterClick = () => {
-    debouncedFill();
-    switchActiveFilter(target);
+    const isNotAlreadySelected = switchActiveFilter(target);
+    const isRandom = target.id.includes('random');
+
+    if (isNotAlreadySelected || isRandom) {
+      debouncedFill();
+    }
   };
 
   target.addEventListener('click', onFilterClick);
