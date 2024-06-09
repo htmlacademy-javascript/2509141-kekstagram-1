@@ -5,9 +5,14 @@ import { setDefaultEffect } from '../effects/selection.js';
 import { resetValidation } from '../validation/validation.js';
 
 
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+
+
 const form = document.querySelector('.img-upload__form');
 const input = form.querySelector('#upload-file');
 const modal = form.querySelector('.img-upload__overlay');
+const preview = modal.querySelector('.img-upload__preview > img');
+
 
 const escListener = createEscListener(hide);
 
@@ -25,8 +30,6 @@ function hide () {
 
 const openModal = () => {
   showModal(modal, escListener);
-
-  // ??? Как из js установить значение по умолчанию, чтобы value не сбрасывалось вместе с формой?
   resetScale();
 };
 
@@ -34,11 +37,30 @@ const disableEscOnFocus = (selector) =>
   modal.querySelector(selector).addEventListener('keydown', (evt) => evt.stopPropagation());
 
 
+const changePreview = () => {
+  const file = input.files[0];
+  const fileName = file.name.toLowerCase();
+  const matches = FILE_TYPES.some((type) => fileName.endsWith(type));
+
+  if (matches) {
+    preview.src = URL.createObjectURL(file);
+  }
+};
+
+// ❔ К одному элементу должен быть прикреплён только один обработчик одного типа (e.g. 'click'),
+// ❔ в котором собраны все действия, даже если они делают совершенно разные вещи?
+const onInputChange = () => {
+  changePreview();
+  openModal();
+};
+
+
 const initEditPhotoModal = () => {
   const closeBtn = document.querySelector('#upload-cancel');
 
-  closeBtn.addEventListener('click', hide);
-  input.addEventListener('change', () => openModal());
+  // ❔ Как-то так?
+  closeBtn.addEventListener('click', () => hide());
+  input.addEventListener('change', onInputChange);
   ['.text__hashtags', '.text__description'].forEach(disableEscOnFocus);
   addSubmitHandler(hide);
 };
