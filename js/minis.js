@@ -38,7 +38,6 @@ const createPicFragment = (picsData) => {
 };
 
 
-// ??? Есть более эффективный способ, чем удалять каждое изображение по одному?
 const clearMinis = () => {
   const minis = document.querySelectorAll('.picture');
   minis.forEach((el) => el.remove());
