@@ -50,8 +50,8 @@ const zoomOut = () => {
 
 const initScaleControl = () => {
   resetScale();
-  zoomInBtn.addEventListener('click', zoomIn);
-  zoomOutBtn.addEventListener('click', zoomOut);
+  zoomInBtn.addEventListener('click', () => zoomIn());
+  zoomOutBtn.addEventListener('click', () => zoomOut());
 };
 
 

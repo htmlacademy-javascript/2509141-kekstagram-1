@@ -21,7 +21,7 @@ const createMessage = () => {
 };
 
 
-const onErrorMouseup = (evt) => {
+const onDocumentMouseup = (evt) => {
   const container = message.querySelector(`.${status}__inner`);
   if (!container.contains(evt.target)) {
     close();
@@ -32,7 +32,7 @@ function close () {
   message.remove();
 
   escListener.off();
-  document.removeEventListener('mouseup', onErrorMouseup);
+  document.removeEventListener('mouseup', onDocumentMouseup);
 }
 
 
@@ -42,8 +42,8 @@ const showResultAlert = (isSuccess = true) => {
 
   const closeBtn = message.querySelector(`.${status}__button`);
 
-  closeBtn.addEventListener('click', close);
-  document.addEventListener('mouseup', onErrorMouseup);
+  closeBtn.addEventListener('click', () => close());
+  document.addEventListener('mouseup', onDocumentMouseup);
   escListener.on();
 
   const body = document.querySelector('body');

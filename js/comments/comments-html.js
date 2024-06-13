@@ -62,20 +62,23 @@ const setCommentsCount = () => {
 };
 
 
+const onLoadCommentsBtnClick = () => {
+  loadNextPartOfCommentElements();
+  setCommentsCount();
+};
+
+
 const setComments = (comments) => {
   modal.querySelector('.comments-count').textContent = comments.length;
 
   loadNextPartOfCommentElements = createCommentLoader(comments);
-  loadCommentsBtn.addEventListener('click', loadNextPartOfCommentElements);
-  loadCommentsBtn.addEventListener('click', setCommentsCount);
+  loadCommentsBtn.addEventListener('click', onLoadCommentsBtnClick);
   loadCommentsBtn.click();
 };
 
 
-const clearLoadCommentsBtn = () => {
-  loadCommentsBtn.removeEventListener('click', setCommentsCount);
-  loadCommentsBtn.removeEventListener('click', loadNextPartOfCommentElements);
-};
+const clearLoadCommentsBtn = () =>
+  loadCommentsBtn.removeEventListener('click', onLoadCommentsBtnClick);
 
 
 export { clearLoadCommentsBtn, setComments };
