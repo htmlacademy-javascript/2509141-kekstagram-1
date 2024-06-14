@@ -25,8 +25,8 @@ function hide () {
   clearLoadCommentsBtn();
 }
 
-const openModal = (photo) => {
-  setModalContent(photo);
+const openModal = (picture) => {
+  setModalContent(picture);
   showModal(modal, escListener);
 };
 

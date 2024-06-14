@@ -1,6 +1,6 @@
 import { loadPictures } from './minis.js';
 import { initBigpic } from './modal/bigpic.js';
-import { initEditPhotoModal } from './modal/photo-edit.js';
+import { initEditPictureModal } from './modal/picture-edit.js';
 import { initValidation } from './validation/validation.js';
 import { initScaleControl } from './scale-control.js';
 import { initEffectSlider } from './effects/slider-init.js';
@@ -11,7 +11,7 @@ loadPictures();
 
 initBigpic();
 
-initEditPhotoModal();
+initEditPictureModal();
 
 initValidation();
 

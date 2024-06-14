@@ -53,7 +53,7 @@ const onInputChange = () => {
 };
 
 
-const initEditPhotoModal = () => {
+const initEditPictureModal = () => {
   const closeBtn = document.querySelector('#upload-cancel');
 
   closeBtn.addEventListener('click', () => hide());
@@ -63,4 +63,4 @@ const initEditPhotoModal = () => {
 };
 
 
-export { initEditPhotoModal };
+export { initEditPictureModal };
