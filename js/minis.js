@@ -10,27 +10,27 @@ const template = document
   .querySelector('.picture');
 
 
-const createPicture = (picData) => {
-  const picture = template.cloneNode(true);
+const createPicture = (picture) => {
+  const a = template.cloneNode(true);
 
-  const img = picture.querySelector('.picture__img');
-  const likes = picture.querySelector('.picture__likes');
-  const comments = picture.querySelector('.picture__comments');
+  const img = a.querySelector('.picture__img');
+  const likes = a.querySelector('.picture__likes');
+  const comments = a.querySelector('.picture__comments');
 
-  img.src = picData.url;
-  likes.textContent = picData.likes;
-  comments.textContent = picData.comments.length;
+  img.src = picture.url;
+  likes.textContent = picture.likes;
+  comments.textContent = picture.comments.length;
 
-  picture.addEventListener('click', () => openModal(picData));
+  a.addEventListener('click', () => openModal(picture));
 
-  return picture;
+  return a;
 };
 
-const createPicFragment = (picsData) => {
+const createPictureFragment = (pictures) => {
   const fragment = document.createDocumentFragment();
 
-  picsData.forEach((pic) => {
-    const picture = createPicture(pic);
+  pictures.forEach((picture) => {
+    picture = createPicture(picture);
     fragment.append(picture);
   });
 
@@ -40,25 +40,25 @@ const createPicFragment = (picsData) => {
 
 const clearMinis = () => {
   const minis = document.querySelectorAll('.picture');
-  minis.forEach((el) => el.remove());
+  minis.forEach((picture) => picture.remove());
 };
 
 const fill = (pictures) => {
-  const picFragment = createPicFragment(pictures);
+  const pictureFragment = createPictureFragment(pictures);
   const pictureContainer = document.querySelector('.pictures');
 
-  pictureContainer.append(picFragment);
+  pictureContainer.append(pictureFragment);
 };
 
-const reFill = (pics) => {
+const reFill = (pictures) => {
   clearMinis();
-  fill(pics);
+  fill(pictures);
 };
 
 
-const setPictures = (pics) => {
-  fill(pics);
-  showFilters(reFill, pics);
+const setPictures = (pictures) => {
+  fill(pictures);
+  showFilters(reFill, pictures);
 };
 
 

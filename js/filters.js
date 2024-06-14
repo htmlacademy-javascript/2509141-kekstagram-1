@@ -3,18 +3,18 @@ import { getRandomUniqueElements } from './random.js';
 
 
 const RERENDER_DELAY = 500;
-const RANDOM_PICS_COUNT = 10;
+const RANDOM_PICTURES_COUNT = 10;
 
 
-const sortByComments = (arr) => {
-  const mapped = arr.map((el, i) => ({
-    index: i,
-    value: el.comments.length
+const sortByComments = (pictures) => {
+  const mapped = pictures.map((picture, index) => ({
+    index,
+    value: picture.comments.length
   }));
 
   mapped.sort((a, b) => b.value - a.value);
 
-  return mapped.map((el) => arr[el.index]);
+  return mapped.map((picture) => pictures[picture.index]);
 };
 
 
@@ -47,10 +47,10 @@ const setFilterClick = (target, filterOut) => {
 };
 
 
-const useFilter = (getPics, reFill, ...rest) =>
+const useFilter = (getPictures, reFill, ...rest) =>
   () => {
-    const pics = getPics.apply(this, rest);
-    reFill(pics);
+    const pictures = getPictures.apply(this, rest);
+    reFill(pictures);
   };
 
 
@@ -65,7 +65,7 @@ const showFilters = (reFill, gottenPictures) => {
 
   setFilterClick(
     filters.querySelector('#filter-random'),
-    useFilter(getRandomUniqueElements, reFill, gottenPictures, RANDOM_PICS_COUNT)
+    useFilter(getRandomUniqueElements, reFill, gottenPictures, RANDOM_PICTURES_COUNT)
   );
 
   setFilterClick(
@@ -75,9 +75,4 @@ const showFilters = (reFill, gottenPictures) => {
 };
 
 
-export {
-  sortByComments,
-  switchActiveFilter,
-  setFilterClick,
-  showFilters
-};
+export { showFilters };
