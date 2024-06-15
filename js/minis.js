@@ -65,7 +65,7 @@ const setPictures = (pictures) => {
 const loadPictures = () =>
   getData()
     .then(setPictures)
-    .catch((errorText) => showAlert(errorText));
+    .catch((err) => showAlert(err.message));
 
 
 export { loadPictures };
