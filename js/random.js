@@ -24,7 +24,6 @@ const getRandomUniqueIndex = (used, length) => {
   return index;
 };
 
-// ??? Может лучше тоже Error возвращать, а не массив меньшего размера?
 const getRandomUniqueElements = (arr, count) => {
   const usedIndexes = [];
   const result = [];

@@ -47,18 +47,15 @@ const changePreview = () => {
   }
 };
 
-// ❔ К одному элементу должен быть прикреплён только один обработчик одного типа (e.g. 'click'),
-// ❔ в котором собраны все действия, даже если они делают совершенно разные вещи?
 const onInputChange = () => {
   changePreview();
   openModal();
 };
 
 
-const initEditPhotoModal = () => {
+const initEditPictureModal = () => {
   const closeBtn = document.querySelector('#upload-cancel');
 
-  // ❔ Как-то так?
   closeBtn.addEventListener('click', () => hide());
   input.addEventListener('change', onInputChange);
   ['.text__hashtags', '.text__description'].forEach(disableEscOnFocus);
@@ -66,4 +63,4 @@ const initEditPhotoModal = () => {
 };
 
 
-export { initEditPhotoModal };
+export { initEditPictureModal };

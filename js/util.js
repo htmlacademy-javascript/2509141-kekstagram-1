@@ -1,6 +1,3 @@
-const createIdGeneratorInRange = (min, max) =>
-  () => min <= max ? min++ : null;
-
 const isEscapeKey = (evt) =>
   evt.key === 'Escape';
 
@@ -40,7 +37,6 @@ const showAlert = (message) => {
 
 
 export {
-  createIdGeneratorInRange,
   assembleElements,
   isEscapeKey,
   showAlert,

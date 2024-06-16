@@ -22,17 +22,17 @@ const setModalContent = ({ url, likes, comments, description }) => {
 function hide () {
   hideModal(modal, escListener);
 
-  closeBtn.removeEventListener('click', hide);
-
   clearLoadCommentsBtn();
 }
 
-const openModal = (photo) => {
-  setModalContent(photo);
+const showBig = (picture) => {
+  setModalContent(picture);
   showModal(modal, escListener);
-
-  closeBtn.addEventListener('click', hide);
 };
 
 
-export { openModal };
+const initBigPicture = () =>
+  closeBtn.addEventListener('click', () => hide());
+
+
+export { initBigPicture, showBig };
