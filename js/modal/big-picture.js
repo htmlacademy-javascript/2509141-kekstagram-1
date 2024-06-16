@@ -25,14 +25,14 @@ function hide () {
   clearLoadCommentsBtn();
 }
 
-const openModal = (picture) => {
+const showBig = (picture) => {
   setModalContent(picture);
   showModal(modal, escListener);
 };
 
 
-const initBigpic = () =>
+const initBigPicture = () =>
   closeBtn.addEventListener('click', () => hide());
 
 
-export { initBigpic, openModal };
+export { initBigPicture, showBig };
