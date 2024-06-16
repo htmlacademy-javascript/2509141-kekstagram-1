@@ -47,30 +47,30 @@ const setFilterClick = (target, filterOut) => {
 };
 
 
-const useFilter = (getPictures, reFill, ...rest) =>
+const useFilter = (getPictures, refill, ...rest) =>
   () => {
     const pictures = getPictures.apply(this, rest);
-    reFill(pictures);
+    refill(pictures);
   };
 
 
-const showFilters = (reFill, gottenPictures) => {
+const showFilters = (refill, gottenPictures) => {
   const filters = document.querySelector('.img-filters');
   filters.classList.remove('img-filters--inactive');
 
   setFilterClick(
     filters.querySelector('#filter-default'),
-    useFilter(() => gottenPictures, reFill)
+    useFilter(() => gottenPictures, refill)
   );
 
   setFilterClick(
     filters.querySelector('#filter-random'),
-    useFilter(getRandomUniqueElements, reFill, gottenPictures, RANDOM_PICTURES_COUNT)
+    useFilter(getRandomUniqueElements, refill, gottenPictures, RANDOM_PICTURES_COUNT)
   );
 
   setFilterClick(
     filters.querySelector('#filter-discussed'),
-    useFilter(sortByComments, reFill, gottenPictures)
+    useFilter(sortByComments, refill, gottenPictures)
   );
 };
 

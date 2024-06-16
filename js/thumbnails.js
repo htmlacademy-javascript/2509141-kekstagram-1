@@ -49,7 +49,7 @@ const fill = (pictures) => {
   pictureContainer.append(pictureFragment);
 };
 
-const reFill = (pictures) => {
+const refill = (pictures) => {
   clearThumbnails();
   fill(pictures);
 };
@@ -74,7 +74,7 @@ const onThumbnailClick = (evt, pictures) => {
 const setPictures = (pictures) => {
   pictureContainer.addEventListener('click', (evt) => onThumbnailClick(evt, pictures));
   fill(pictures);
-  showFilters(reFill, pictures);
+  showFilters(refill, pictures);
 };
 
 
